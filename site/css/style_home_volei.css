@@ -1,0 +1,230 @@
+body {
+ font-family: 'Franklin Gothic Medium';
+  background-color: #D8D2FA; 
+  color: #10283D;
+ 
+}
+
+.header {
+    padding: 12px 36px;
+  background-color: #10283D;
+   display: flex;
+    justify-content: space-between;
+}
+
+.header .logo {
+  height: auto;
+  display: flex;
+  align-items: center;
+  
+}
+.logo img {
+  width: 110px; 
+  height: auto;
+  
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+
+header nav::before {
+  content: "";
+  flex: 1;
+}
+
+
+div.home-btn {
+  
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-style: #fff;
+}
+
+
+div.login-btn {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+}
+
+div.home-btn a,
+div.login-btn a {
+  color: #ffffff;             
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;  
+}
+
+div.home-btn a:hover,
+div.login-btn a:hover {
+  color: #3f42fa;            
+  transform: translateY(-2px);
+}
+
+
+section.main {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  text-align: center;
+  
+  
+  
+  
+}
+
+.main {
+    background-image: url("img/image2.png");
+   
+}
+
+.main-interno .titulo_geral {
+  color: #d4f712;
+  font-size: large;
+  align-self: flex-start;
+}
+
+
+
+
+.historia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+
+.historia .history-copy {
+flex: 1;
+  background-color: #ffffff;
+  color: #334155;
+  padding: 40px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.historia .history-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+   gap: 200px;
+   
+}
+
+.historia .history-img img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 16px;
+ 
+}
+
+
+.container-informacao{
+    padding: 22px;
+}
+.posicao-container{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.posicao-container1{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.posicao-container .posições {
+   background-color: #ffffff;
+  color: #334155;
+ padding: 25px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row ;
+  gap: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 25rem;
+  
+}
+
+
+
+.posicao-container .posições .emoji {
+  background-color: #233c77;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-self: center;
+  font-size: 40px;
+}
+.emoji{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.lugares {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+.lugares .lugares {
+  background-color: #ffffff;
+  color: #334155;
+ padding: 25px;
+  border-radius: 16px;
+  width: 25rem;
+}
+
+.lugares .lugares .lugares-img {
+width: 5px;
+height: auto;  
+}
+
+
+
+
+.foot {
+   padding: 12px 36px;
+  background-color: #10283D;
+   display: flex;
+    justify-content: space-between;
+}
+
+.texto-footer{
+ display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-style: #fff;
+}
+.footer-info{
+    color: #fff;
+    align-self: flex-end;
+}
+a{
+    color: #fff;
+    align-self: flex-end;
+}
+
+.opiniao-card{
+
+
+}
