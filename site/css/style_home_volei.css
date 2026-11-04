@@ -1,23 +1,45 @@
+*{
+margin: 0;
+padding: 0;
+border: 0;
+box-sizing: border-box;
+}
 body {
  font-family: 'Franklin Gothic Medium';
   background-color: #D8D2FA; 
   color: #10283D;
  
 }
+html {
+    scroll-behavior: smooth;
+}
 
 .header {
-    padding: 12px 36px;
+    padding: 12px 300px;
   background-color: #10283D;
    display: flex;
     justify-content: space-between;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    
+}
+header {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
 }
 
 .header .logo {
   height: auto;
   display: flex;
   align-items: center;
+  justify-content: start;
   
 }
+
 .logo img {
   width: 110px; 
   height: auto;
@@ -25,11 +47,13 @@ body {
 }
 
 header nav {
-  display: flex;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    width: 100%;
+    margin-left: 40px;
 }
-
 
 header nav::before {
   content: "";
@@ -68,7 +92,7 @@ div.login-btn a:hover {
 }
 
 
-section.main {
+section.fundo {
   position: relative;
   min-height: 600px;
   display: flex;
@@ -82,12 +106,12 @@ section.main {
   
 }
 
-.main {
+.fundo {
     background-image: url("img/image2.png");
    
 }
 
-.main-interno .titulo_geral {
+.fundo-interno .titulo_geral {
   color: #d4f712;
   font-size: large;
   align-self: flex-start;
@@ -107,7 +131,7 @@ section.main {
 }
 
 
-.historia .history-copy {
+.historia .historia-interno {
 flex: 1;
   background-color: #ffffff;
   color: #334155;
@@ -117,7 +141,8 @@ flex: 1;
   flex-direction: column;
   gap: 10px;
 }
-.historia .history-img {
+
+.historia .historia-img {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -125,7 +150,7 @@ flex: 1;
    
 }
 
-.historia .history-img img {
+.historia .historia-img img {
   width: 100%;
   max-width: 500px;
   height: auto;
@@ -137,11 +162,13 @@ flex: 1;
 .container-informacao{
     padding: 22px;
 }
+
 .posicao-container{
     display: flex;
     justify-content: center;
     gap: 20px;
 }
+
 .posicao-container1{
     display: flex;
     justify-content: center;
