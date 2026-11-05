@@ -55,13 +55,10 @@ header nav {
     margin-left: 40px;
 }
 
-header nav::before {
-  content: "";
-  flex: 1;
-}
 
 
-div.home-btn {
+
+.home-btn {
   
   display: flex;
   justify-content: center;
@@ -70,24 +67,22 @@ div.home-btn {
 }
 
 
-div.login-btn {
+.login-btn {
   flex: 1;
   display: flex;
   justify-content: flex-end;
   gap: 30px;
 }
 
-div.home-btn a,
-div.login-btn a {
+.home-btn {
   color: #ffffff;             
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s ease;  
+  transition: 0.5s ;  
 }
 
-div.home-btn a:hover,
-div.login-btn a:hover {
-  color: #3f42fa;            
+.home-btn :hover {
+  color: #f7f7f7;            
   transform: translateY(-2px);
 }
 

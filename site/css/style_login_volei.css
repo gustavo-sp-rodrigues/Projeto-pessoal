@@ -1,9 +1,67 @@
+*{
+margin: 0;
+padding: 0;
+border: 0;
+box-sizing: border-box;
+}
+
 body {
  font-family: 'Franklin Gothic Medium';
   background-color: #D8D2FA; 
   color: #10283D;
 
 }
+.header {
+    padding: 12px 3px;
+   background-color: #10283D;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+   
+    
+}
+header {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    width: 100%;
+    margin-left: 40px;
+}
+
+
+.home-btn {
+  
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  color: #fff;
+}
+
+
+
+
+.logo img {
+  width: 110px; 
+  height: auto;
+  
+}
+
 .login{
 display: flex;
 justify-content: space-evenly;
