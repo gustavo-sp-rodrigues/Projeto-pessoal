@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="css/style_dashsboard.css">
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+
+            <div class="logo">
+                <img src="img/imagem_logo.png" alt="">
+            </div>
+
+            <nav>
+                <div class="home-btn">
+                    <a href="home.html">Home</a>
+                    <a href="#dashboard">Dashboard</a>
+
+
+                    <a href="login.html">login</a>
+                    <a href="cadastro.html">cadastro</a>
+                </div>
+
+
+    </header>
+    </nav>
+    </div>
+
+
+
+    <div class="container-geral">
+
+        <div class="container-esquerda">
+            <select name="" id="selecao_local" onchange="mudar()">
+                <option value="1" >Pelezão</option>
+                <option value="2" selected>Parque villa Lobos</option>
+                <option value="3">Sesc Pompéia</option>
+
+            </select>
+
+            <button>Geral</button>
+
+            <button>Comentar</button>
+        </div>
+
+        <div class="container-direita">
+            <div class="kpi">
+                nota média
+                4/5
+            </div>
+            <div class="kpi">
+                avaliaçoes recebidas
+                5
+            </div>
+
+            <span>gráfico aqui</span>
+
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+
+            <details>
+                <summary>cómentarios da comunidade</summary>
+
+                <h6>alem de tudo tem bike </h6>
+                <h6>tem uma quadra que e paga </h6>
+
+
+            </details>
+
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+ const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Villa Lobbos', 'Pelezão', 'Sesc Pompeia'],
+      datasets: [{
+        label: 'Nota dos lugares',
+        data: [5, 3, 4],
+        borderWidth: 1
+      }]
+    },
+    options: {
+
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  function mudar() {
+      let local = selecao_local.value
+
+        if (local == '1') {
+            window.location = 'dashboard_pelezao.html'
+        } else if (local == '2') {
+            window.location = 'dashboard_villa.html'
+        } else if (local == '3') {
+            window.location = 'dashboard_sesc.html'
+        } 
+}
+
+</script>

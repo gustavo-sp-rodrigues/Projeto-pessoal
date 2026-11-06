@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="css/style_dashsboard.css">
+
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+
+            <div class="logo">
+                <img src="img/imagem_logo.png" alt="">
+            </div>
+
+            <nav>
+                <div class="home-btn">
+                    <a href="home.html">Home</a>
+                    <a href="dashboard_sesc.html">Dashboard</a>
+
+
+                    <a href="login.html">login</a>
+                    <a href="cadastro.html">cadastro</a>
+                </div>
+
+
+    </header>
+    </nav>
+    </div>
+
+
+
+    <div class="container-geral">
+
+        <div class="container-esquerda">
+            <select name="" id="selecao_local" onchange="mudar()">
+                <option value="1" selected>Pelezão</option>
+                <option value="2">Parque villa Lobos</option>
+                <option value="3">Sesc Pompéia</option>
+
+            </select>
+
+            <button>Geral</button>
+
+            <button>Comentar</button>
+        </div>
+
+        <div class="container-direita">
+            <div class="kpi">
+                nota média
+                4/5
+            </div>
+            <div class="kpi">
+                avaliaçoes recebidas
+                5
+            </div>
+
+            <span>gráfico aqui</span>
+
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+
+            <details>
+                <summary>cómentarios da comunidade</summary>
+
+                <h6>eu adoro pelezão SELECT avaliacao.comentarios from lugar Join avaliacao ON lugar.id =
+                    avaliacao.fk_lugar </h6>
+                <h6>pelezão fodão</h6>
+
+
+            </details>
+
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+ const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Villa Lobbos', 'Pelezão', 'Sesc Pompeia'],
+      datasets: [{
+        label: 'Nota dos lugares',
+        data: [5, 3, 4],
+        borderWidth: 1,
+          backgroundColor: [
+            '#3498DB', 
+            '#2ECC71', 
+            '#E67E22'  
+      ]
+      }]
+    },
+    options: {
+responsive: true,
+  plugins: {
+                legend: {
+
+
+                    labels: {
+                        boxWidth: 40,
+                        boxHeight: 15,
+                        font: {
+                            size: 10.45
+
+                        }
+                    }
+                },
+
+                title: {
+                    display: true,
+                    text: 'Comentário',
+                    align: 'start',
+                    font: {
+                        size: 24.2,
+                        weight: 'bold'
+                    },
+                    color: '#000'
+                }
+            },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+function mudar() {
+      let local = selecao_local.value
+
+        if (local == '1') {
+            window.location = 'dashboard_pelezao.html'
+        } else if (local == '2') {
+            window.location = 'dashboard_villa.html'
+        } else if (local == '3') {
+            window.location = 'dashboard_sesc.html'
+        } 
+}
+
+</script>

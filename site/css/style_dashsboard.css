@@ -5,6 +5,7 @@ padding: 0;
 border: 0;
 box-sizing: border-box;
 }
+
 body {
  font-family: 'Franklin Gothic Medium';
   background-color: #D8D2FA; 
@@ -13,79 +14,109 @@ body {
 }
 
 .header {
-    display: flex;
+    width: 100%;
+    padding: 20px;
+  background-color: #10283D;
+   display: flex;
     justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    
+}
+header {
+   
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
 }
 
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #003566;
+.header .logo {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  
 }
 
-.logo span {
-    color: #0077b6;
+.logo img {
+  width: 110px; 
+  height: auto;
+  
 }
 
-nav {
+header nav {
     display: flex;
     align-items: center;
-    gap: 25px;
+    justify-content: space-between;
+    flex: 1;
+    width: 100%;
+    margin-left: 40px;
 }
 
-.home-btn,
+
+
+
+.home-btn {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-style: #fff;
+  transition: 0.5s;
+}
+a{
+    color: #fff;
+    align-self: flex-end;
+}
+
 .login-btn {
-    display: flex;
-    gap: 15px;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
 }
 
-nav a {
-    text-decoration: none;
-    color: #003566;
-    font-weight: bold;
-    transition: 0.3s;
+
+
+.home-btn :hover {
+  color: #f7f7f7;            
+  transform: translateY(-2px);
 }
 
-nav a:hover {
-    color: #0096c7;
-}
 
-/* Área principal */
+
+
 .container-geral {
     display: flex;
     gap: 30px;
     padding: 40px;
-    min-height: 80vh;
 }
 
-/* Lado esquerdo */
+
 .container-esquerda {
     background-color: #b9e0ff;
-    padding: 25px;
+    padding: 30px;
     border-radius: 15px;
     width: 25%;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Select */
 select {
     padding: 12px;
-    border: 2px solid #00509d;
+    border: 2px solid #000000;
     border-radius: 8px;
     background-color: white;
-    color: #003566;
-    font-size: 15px;
+    color: #10283D;
     cursor: pointer;
 }
 
-/* Botões */
+
 button {
-    background-color: #003566;
+    background-color: #10283D;
     color: white;
     border: none;
     padding: 13px 20px;
@@ -93,28 +124,24 @@ button {
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.3s ;
 }
 
 button:hover {
-    background-color: #0077b6;
     transform: scale(1.04);
-    box-shadow: 0 4px 10px rgba(0, 53, 102, 0.25);
 }
 
-/* Lado direito */
+
 .container-direita {
     background-color: #eef8ff;
-    padding: 25px;
+    padding: 15px;
     border-radius: 15px;
     width: 75%;
     display: flex;
     flex-direction: column;
     gap: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* KPIs */
 .kpi {
     background-color: #b9e0ff;
     color: #003566;
@@ -123,21 +150,11 @@ button:hover {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Gráfico */
-.container-direita span {
-    background-color: #d9efff;
-    border: 2px dashed #0077b6;
-    border-radius: 12px;
-    padding: 60px;
-    text-align: center;
-    color: #003566;
-    font-size: 20px;
-}
 
-/* Comentários */
+
+
 details {
     background-color: #b9e0ff;
     padding: 20px;
