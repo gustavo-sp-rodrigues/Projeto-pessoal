@@ -67,6 +67,7 @@ header nav {
   transition: 0.3s;
 }
 
+
 .home-btn a:hover {
   color: #D8D2FA;
   transform: translateY(-3px);
@@ -218,7 +219,6 @@ section.fundo {
 
 .posicao-container .posições:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(16, 40, 61, 0.12);
 }
 
 .posicao-container .posições h3 {
@@ -267,7 +267,6 @@ section.fundo {
 
 .lugares .lugares:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(16, 40, 61, 0.12);
 }
 
 .lugares-body {
@@ -321,8 +320,12 @@ section.fundo {
   text-align: center;
   max-width: 700px;
   margin: 20px auto;
+  transition:0.3s ;
 }
+.opiniao-card:hover{
+ transform: translateY(-3px);
 
+}
 .opiniao-card h2 {
   font-size: 30px;
   margin-bottom: 20px;
@@ -378,9 +381,7 @@ footer {
   transition: 0.3s;
 }
 
-.foot a:hover {
-  color: #D8D2FA;
-}
+
 
 .footer-info {
   color: #ffffff;
