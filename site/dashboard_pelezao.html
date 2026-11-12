@@ -39,19 +39,39 @@
     <div class="container-geral">
 
         <div class="container-esquerda">
+
+        <div class="usuario"> <h2>Olá:
+            usuario 
+        </h2></div>
+
             <select name="" id="selecao_local" onchange="mudar()">
                 <option value="1" selected>Pelezão</option>
                 <option value="2">Parque villa Lobos</option>
                 <option value="3">Sesc Pompéia</option>
 
             </select>
+ </select>
+            <form class="form-comentario" onsubmit="enviar_comentario()">
+                <label for="sel_nota">Nota (1 a 5)</label>
+                <select id="sel_nota">
+                    <option value="5">5 - Excelente ⭐</option>
+                    <option value="4">4 - Muito bom ⭐</option>
+                    <option value="3">3 - Bom ⭐</option>
+                    <option value="2">2 - Regular ⭐</option>
+                    <option value="1">1 - Ruim ⭐</option>
+                </select>
 
-            <button>Geral</button>
+                <label for="txt_comentario">Seu comentario</label>
+                <textarea id="txt_comentario" maxlength="230" 
+                placeholder="Conte como foi jogar aqui..."></textarea>
 
-            <button>Comentar</button>
+                <button type="submit">Enviar comentario</button>
+            </form>
         </div>
 
         <div class="container-direita">
+            <h2>Pelezão</h2>
+            
             <div class="kpi">
                 nota média
                 4/5
@@ -68,7 +88,7 @@
             </div>
 
             <details>
-                <summary>cómentarios da comunidade</summary>
+                <summary>comentários da comunidade</summary>
 
                 <h6>eu adoro pelezão SELECT avaliacao.comentarios from lugar Join avaliacao ON lugar.id =
                     avaliacao.fk_lugar </h6>

@@ -45,13 +45,27 @@
                 <option value="3">Sesc Pompéia</option>
 
             </select>
+ </select>
+            <form class="form-comentario" onsubmit="enviar_comentario()">
+                <label for="sel_nota">Nota (1 a 5)</label>
+                <select id="sel_nota">
+                    <option value="5">5 - Excelente ⭐</option>
+                    <option value="4">4 - Muito bom ⭐</option>
+                    <option value="3">3 - Bom ⭐</option>
+                    <option value="2">2 - Regular ⭐</option>
+                    <option value="1">1 - Ruim ⭐ </option>
+                </select>
 
-            <button>Geral</button>
+                <label for="txt_comentario">Seu comentario</label>
+                <textarea id="txt_comentario" maxlength="230" 
+                placeholder="Conte como foi jogar aqui..."></textarea>
 
-            <button>Comentar</button>
+                <button type="submit">Enviar comentario</button>
+            </form>
         </div>
 
         <div class="container-direita">
+            <h2>Villa Lobos</h2>
             <div class="kpi">
                 nota média
                 4/5
@@ -68,7 +82,7 @@
             </div>
 
             <details>
-                <summary>cómentarios da comunidade</summary>
+                <summary>comentários da comunidade</summary>
 
                 <h6>alem de tudo tem bike </h6>
                 <h6>tem uma quadra que e paga </h6>
@@ -93,11 +107,41 @@
       datasets: [{
         label: 'Nota dos lugares',
         data: [5, 3, 4],
-        borderWidth: 1
+        borderWidth: 1,
+          backgroundColor: [
+            '#3498DB', 
+            '#2ECC71', 
+            '#E67E22'  
+      ]
       }]
     },
     options: {
+responsive: true,
+  plugins: {
+                legend: {
 
+
+                    labels: {
+                        boxWidth: 40,
+                        boxHeight: 15,
+                        font: {
+                            size: 10.45
+
+                        }
+                    }
+                },
+
+                title: {
+                    display: true,
+                    text: 'Comentário',
+                    align: 'start',
+                    font: {
+                        size: 24.2,
+                        weight: 'bold'
+                    },
+                    color: '#000'
+                }
+            },
       scales: {
         y: {
           beginAtZero: true
