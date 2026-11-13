@@ -22,4 +22,5 @@ CREATE TABLE comentario (
     FOREIGN KEY (fk_local) REFERENCES locais(id),
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
+select * from comentario;
 

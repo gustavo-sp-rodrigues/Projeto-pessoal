@@ -171,30 +171,7 @@ border-radius: 8px;
 
 
 
-.btn-login button {
-    background-color: transparent;
-    font-weight: bold;
 
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-    position: relative;
-}
-
-.btn-login button::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background-color: #10283D;
-    bottom: -5px;
-    left: 0;
-    transition: 0.3s;
-}
-
-.btn-login button:hover::after {
-    width: 100%;
-}
 
 .logado{
 display: flex;

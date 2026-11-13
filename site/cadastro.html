@@ -10,75 +10,147 @@
 </head>
 
 <body>
-<header>
-        <div class="header">
+    <div id="total">
 
-            <div class="logo">
-                <span class="bola"><img src="img/imagem_logo.png" alt=""></span>
-              
-            </div>
+        <header>
+            <div class="header">
 
-            <nav>
-                <div class="home-btn">
-                    <a href="home.html">Home</a>
-                  
-                    <a href="dashboard_pelezao.html">Dashboard</a>
-                    
-                    
-                    <a href="login.html">login</a>
-                    <a href="cadastro.html">cadastro</a>
-                    
+                <div class="logo">
+                    <span class="bola"><img src="img/imagem_logo.png" alt=""></span>
+
                 </div>
 
-            </nav>
+                <nav>
+                    <div class="home-btn">
+                        <a href="home.html">Home</a>
 
-        </div>
-    </header>
-
-
-
+                        <a href="dashboard_pelezao.html">Dashboard</a>
 
 
+                        <a href="login.html">login</a>
+                        <a href="cadastro.html">cadastro</a>
 
+                    </div>
 
-    <div class="login">
-        <div class="img">
-            <span>Seu novo time começa aqui</span>
-        </div>
+                </nav>
 
-        <div class="campos-login">
-            <div class="titulo">
-                <h1>Crie sua conta</h1>
             </div>
-            <label for="ipt_login">Seu email</label>
-            <input type="text" id="ipt_login">
+        </header>
 
-            <label for="ipt_senha">Senha:</label>
-            <input type="text " id="ipt_senha" >
 
-             <label for="ipt_senha">Confirmar sua senha:</label>
-            <input type="text " id="ipt_senha">
 
-            
-            <div class="btn-entrar">
-                <button>Cadastrar</button>
+
+
+
+
+        <div class="login">
+            <div class="img">
+                <span>Seu novo time começa aqui</span>
             </div>
 
-            <div class="logado">
-<label >já tem conta?</label>
-<button onclick="login()">Entrar na minha conta </button>
-                
+            <div class="campos-login">
+                <div class="titulo">
+                    <h1>Crie sua conta</h1>
+                </div>
+
+                <label for="ipt_nome">Seu nome</label>
+                <input type="text" id="ipt_nome">
+
+
+                <label for="ipt_login">Seu email</label>
+                <input type="text" id="ipt_email">
+
+                <label for="ipt_senha">Senha:</label>
+                <input type="text " id="ipt_senha">
+
+                <label for="ipt_senha">Confirmar sua senha:</label>
+                <input type="text " id="ipt_confirmarsenha">
+
+
+                <div class="btn-entrar">
+                    <button onclick="cadastro()">Cadastrar</button>
+                </div>
+
+                <div class="logado">
+                    <label>já tem conta?</label>
+                    <button onclick="login()">Entrar na minha conta </button>
+
+                </div>
+                <div id="div_msg"></div>
             </div>
+
+
         </div>
-
-
     </div>
 </body>
 
 </html>
 <script>
-    function login(params) {
-        window.location.href= 'login.html'
-        
+
+    function login() {
+        window.location.href = 'login.html';
     }
+
+    function cadastro() {
+
+        let nome = ipt_nome.value;
+        let email = ipt_email.value;
+        let senha = ipt_senha.value;
+        let confirmarSenha = ipt_confirmarsenha.value;
+
+        let criterios = 0;
+
+        if (senha.length >= 8) {
+            criterios++;
+        }
+
+        if (senha.match(/[A-Z]/)) {
+            criterios++;
+        }
+
+        if (senha.match(/[0-9]/)) {
+            criterios++;
+        }
+
+        if (nome != '') {
+
+            if (email.includes('@')) {
+
+                if (criterios == 3) {
+
+                    if (confirmarSenha == senha) {
+
+                        div_msg.innerHTML = '<span class="acerto">Cadastro realizado com sucesso!</span>';
+
+                        ipt_nome.value = '';
+                        ipt_email.value = '';
+                        ipt_senha.value = '';
+                        ipt_confirmarsenha.value = '';
+
+
+
+
+
+                        setTimeout(() => {
+                            window.location.href = 'espera.html';
+                        }, 300);
+
+                    } else {
+                        div_msg.innerHTML = '<span style="color: brown;">As senhas não são iguais!</span>';
+                    }
+
+                } else {
+                    div_msg.innerHTML = '<span style="color: brown;">A senha precisa ter 8 caracteres, uma letra maiúscula e um número!</span>';
+                }
+
+            } else {
+                div_msg.innerHTML = '<span style="color: brown;">Digite um e-mail válido!</span>';
+            }
+
+        } else {
+            div_msg.innerHTML = '<span style="color: brown;">Digite o nome de usuário!</span>';
+        }
+    }
+
+
 </script>

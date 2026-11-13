@@ -54,20 +54,32 @@
             <label for="ipt_senha">Senha:</label>
             <input type="text " id="ipt_senha">
 
-            <div class="btn-login">
-
-                <button>Lembrar de mim</button>
-                <button>Esqueci minha senha</button>
-
-            </div>
+          
             <div class="btn-entrar">
-                <button>Login</button>
+                <button onclick="logar()">Login</button>
             </div>
 
         </div>
-
-
+        
+        <div id="div_msg"></div>
     </div>
 </body>
 
 </html>
+<script>
+    
+function logar() {
+
+if (ipt_login.value != "" && ipt_senha.value != "") {
+    
+    
+    setTimeout(() => {
+        window.location.href = 'espera1.html';
+    }, 300);
+ } else {
+    div_msg = `Senha ou e-mail incorretos`
+ }
+
+}
+
+</script>
