@@ -9,8 +9,10 @@ function buscarAquariosPorEmpresa(empresaId) {
 }
 
 function cadastrar(empresaId, descricao) {
-  
-  var instrucaoSql = `INSERT INTO (descricao, fk_empresa) aquario VALUES (${descricao}, ${empresaId})`;
+  // ATENÇÃO: query corrigida. Antes a ordem e a sintaxe do INSERT estavam incorretas
+  // ("INSERT INTO (cols) table VALUES" estava invertido). Isso gerava erro de SQL.
+  // Observação: ainda é recomendado usar queries parametrizadas para evitar SQL injection.
+  var instrucaoSql = `INSERT INTO aquario (descricao, fk_empresa) VALUES ('${descricao}', ${empresaId})`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

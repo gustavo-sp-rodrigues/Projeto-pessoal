@@ -23,15 +23,22 @@ function autenticar(req, res) {
                         aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
                             .then((resultadoAquarios) => {
                                 if (resultadoAquarios.length > 0) {
+                                    // Não enviar senha na resposta por segurança
+                                    // renomeamos a chave para 'locais' para refletir o frontend Vôlei SP
                                     res.json({
                                         id: resultadoAutenticar[0].id,
                                         email: resultadoAutenticar[0].email,
                                         nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
+                                        locais: resultadoAquarios
                                     });
                                 } else {
-                                    res.status(204).json({ aquarios: [] });
+                                    // Retornar usuário com lista vazia de locais
+                                    res.json({
+                                        id: resultadoAutenticar[0].id,
+                                        email: resultadoAutenticar[0].email,
+                                        nome: resultadoAutenticar[0].nome,
+                                        locais: []
+                                    });
                                 }
                             })
                     } else if (resultadoAutenticar.length == 0) {

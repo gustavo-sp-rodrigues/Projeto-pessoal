@@ -1,9 +1,10 @@
 var aquarioModel = require("../models/aquarioModel");
 
 function buscarAquariosPorEmpresa(req, res) {
-  var idUsuario = req.params.idUsuario;
+  // corrigido: rota fornece 'empresaId' como parâmetro (src/routes/aquarios.js)
+  var empresaId = req.params.empresaId;
 
-  aquarioModel.buscarAquariosPorEmpresa(idUsuario).then((resultado) => {
+  aquarioModel.buscarAquariosPorEmpresa(empresaId).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

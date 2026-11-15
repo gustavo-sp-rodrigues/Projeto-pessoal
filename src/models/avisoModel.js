@@ -10,8 +10,7 @@ function listar() {
             a.fk_usuario,
             u.id AS idUsuario,
             u.nome,
-            u.email,
-            u.senha
+            u.email
         FROM aviso a
             INNER JOIN usuario u
                 ON a.fk_usuario = u.id;
@@ -30,8 +29,7 @@ function pesquisarDescricao(texto) {
             a.fk_usuario,
             u.id AS idUsuario,
             u.nome,
-            u.email,
-            u.senha
+            u.email
         FROM aviso a
             INNER JOIN usuario u
                 ON a.fk_usuario = u.id
@@ -51,8 +49,7 @@ function listarPorUsuario(idUsuario) {
             a.fk_usuario,
             u.id AS idUsuario,
             u.nome,
-            u.email,
-            u.senha
+            u.email
         FROM aviso a
             INNER JOIN usuario u
                 ON a.fk_usuario = u.id
