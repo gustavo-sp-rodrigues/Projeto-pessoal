@@ -1,0 +1,372 @@
+========================================================================
+CONVERSA PARA CONEXÃO — SITE VÔLEI x BANCO DE DADOS
+========================================================================
+Projeto: Projeto-pessoal1 (site Vôlei SP / web-data-viz)
+Arquivo gerado a partir da conversa com o agente.
+Data: 15/11/2026
+
+Sumário
+  1. Pergunta inicial: como conectar o site ao banco em assets
+  2. Decisão: apenas explicar, não alterar arquivos
+  3. Pergunta: o que mudar no backend / como seguir com o comentarioController
+========================================================================
+
+
+========================================================================
+1. PERGUNTA INICIAL
+========================================================================
+
+Usuário:
+  "o que eu faço para conectar o site volei ao banco que esta no assets
+   me fale oq e necessario fazer"
+
+------------------------------------------------------------------------
+Resposta do agente
+------------------------------------------------------------------------
+
+Analisei o projeto. Resumo do que já existe e do que falta para o site
+Vôlei falar com o banco de assets.
+
+SITUAÇÃO ATUAL
+
+- Banco: assets/banco_so_site.sql cria as tabelas usuario, locais e
+  comentario no schema sprint3. É esse o script a usar (o .mwb é só o
+  modelo do Workbench).
+
+- Conexão: src/database/config.js usa mysql2 e lê as variáveis de .env.
+  O .env.dev já existe com DB_DATABASE=sprint3, DB_USER=gustavo,
+  DB_PORT=3306, e o app.js carrega o .env.dev automaticamente.
+
+- Problema: o backend ainda é o template web-data-viz e o frontend do
+  site/ é 100% mockado.
+
+O QUE É NECESSÁRIO FAZER
+
+1. Banco de dados
+   - Ter o MySQL rodando.
+   - Criar o schema (o script só faz "use sprint3", não cria):
+       CREATE DATABASE sprint3;
+   - Executar assets/banco_so_site.sql.
+   - Inserir os 3 locais (Pelezão, Parque Villa-Lobos, SESC Pompeia) na
+     tabela locais, senão as queries por local retornam vazio.
+
+2. Backend (ajustes obrigatórios, pois o código do template não bate
+   com o seu banco)
+   - src/models/usuarioModel.js: o SELECT usa fk_empresa, coluna que
+     NÃO existe no seu banco -> o login quebra. Trocar para
+     "SELECT id, nome, email".
+   - src/models/usuarioModel.js: cadastrar já insere só
+     nome, email, senha (ok), mas recebe parâmetro a mais.
+   - src/controllers/usuarioController.js: remover a exigência de
+     idEmpresaVincularServer no cadastro e remover a busca de
+     "aquarios/empresaId" no login.
+   - src/models/comentarioModel.js: está incompleto (exporta cadastrar
+     que não existe, e buscarPorCnpj na verdade é por local). Precisa de
+     listar, listarPorLocal(id) e cadastrar(nota, comentario, fk_local,
+     fk_usuario).
+   - Criar src/controllers/comentarioController.js e
+     src/routes/comentarios.js (o controller atual está quebrado, usa
+     empresaModel inexistente).
+   - src/routes/locais.js: está com erro grave — require("SELECT * from
+     locais") e usa aquarioController sem importar. Por isso o app.js
+     silenciosamente ignora a rota /locais.
+   - app.js: adicionar o mount de /comentarios.
+
+3. Frontend (site/)
+   - site/login.html -> hoje só valida e redireciona. Trocar por
+     fetch POST /usuarios/autenticar com emailServer/senhaServer e
+     salvar sessão.
+   - site/cadastro.html -> hoje só valida e mostra mensagem. Adicionar
+     fetch POST /usuarios/cadastrar com nomeServer/emailServer/senhaServer.
+   - site/css/...dashboard_*.html -> o enviar_comentario() não existe em
+     lugar nenhum. Criar o JS que faz POST /comentarios/cadastrar e o
+     GET /comentarios/por_local/:id para preencher o gráfico e a lista
+     (hoje os dados do Chart.js estão fixos).
+   - As páginas são servidas em http://localhost:3333/site/..., então o
+     fetch para /usuarios e /comentarios funciona na mesma origem.
+
+OBSERVAÇÕES (não bloqueiam a conexão)
+   - Não há hash de senha nem queries parametrizadas (risco de SQL
+     injection). Recomendo tratar depois.
+   - As rotas de avisos, medidas, empresas, aquarios são do template e
+     não são usadas pelo site Vôlei.
+
+
+========================================================================
+2. DECISÃO REGISTRADA
+========================================================================
+
+Pergunta apresentada ao usuário: como prosseguir com a conexão do site
+ao banco?
+
+Opções oferecidas:
+  - Implementar o plano completo (recomendado)
+  - Só backend/banco
+  - Só frontend (fetch)
+  - Só explicar, não alterar
+
+Resposta do usuário:
+  "Só explicar, não alterar"
+
+
+========================================================================
+3. PERGUNTA SOBRE O BACKEND
+========================================================================
+
+Usuário:
+  "o que preciso mudar o back end como seguir estou criando o
+   comentariocontroler.js e depois disso não sei o que fazer"
+
+------------------------------------------------------------------------
+Resposta do agente
+------------------------------------------------------------------------
+
+Boa, você está no caminho certo. O segredo é entender a ordem das
+camadas e que cada uma só enxerga a próxima:
+
+  navegador (fetch)
+     -> src/routes/comentarios.js              (define a URL)
+     -> controllers/comentarioController.js     (lê req, valida, responde res)
+     -> models/comentarioModel.js               (monta e executa o SQL)
+     -> database/config.js                      (conexão MySQL)
+     -> tabelas comentario / locais / usuario
+
+Depois de criar o comentarioController.js, você precisa fazer 4 coisas,
+nesta ordem. Cada uma é explicada abaixo, com código no padrão do
+projeto (para você mesmo digitar).
+
+PASSO 1 — TERMINAR O comentarioModel.js (FAZER PRIMEIRO)
+
+Atenção a um bug que vai quebrar o servidor: na linha 24 você exporta
+cadastrar, mas a função cadastrar NÃO existe no arquivo. Assim que um
+controller der require("../models/comentarioModel"), o Node lança
+ReferenceError: cadastrar is not defined.
+
+O model correto deve ter 3 funções:
+
+var database = require("../database/config");
+
+function listar() {
+    var instrucaoSql = `
+        SELECT c.id, c.nota, c.comentario, c.fk_local, c.fk_usuario,
+               l.nome AS nome_local, u.nome AS nome_usuario
+        FROM comentario c
+        JOIN locais l  ON l.id = c.fk_local
+        JOIN usuario u ON u.id = c.fk_usuario;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function listar_por_local(id_local) {
+    var instrucaoSql = `
+        SELECT c.id, c.nota, c.comentario, c.fk_usuario, u.nome AS nome_usuario
+        FROM comentario c
+        JOIN usuario u ON u.id = c.fk_usuario
+        WHERE c.fk_local = ${id_local};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function cadastrar(nota, comentario, fk_local, fk_usuario) {
+    var instrucaoSql = `
+        INSERT INTO comentario (nota, comentario, fk_local, fk_usuario)
+        VALUES ('${nota}', '${comentario}', ${fk_local}, ${fk_usuario});
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+module.exports = {
+    listar,
+    listar_por_local,
+    cadastrar
+};
+
+Conceito importante: no seu banco_so_site.sql, nota é CHAR(5) (texto)
+-> vai entre aspas. fk_local e fk_usuario são INT -> sem aspas. As
+funções antigas buscarPorId e buscarPorCnpj do template não servem para
+o site; pode removê-las (mas confirme antes, porque é remoção de
+código).
+
+PASSO 2 — REESCREVER O comentarioController.js
+
+O arquivo atual ainda é do template: faz
+require("../models/empresaModel"), e esse arquivo foi deletado (aparece
+como D no git status). Se uma rota carregar esse controller, dá
+MODULE_NOT_FOUND. Ele precisa apontar para o comentarioModel que você
+acabou de arrumar:
+
+var comentarioModel = require("../models/comentarioModel");
+
+function listar(req, res) {
+    comentarioModel.listar().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os comentários: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function listar_por_local(req, res) {
+    var id_local = req.params.id_local;
+
+    comentarioModel.listar_por_local(id_local).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os comentários: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function cadastrar(req, res) {
+    var nota = req.body.nota;
+    var comentario = req.body.comentario;
+    var fk_local = req.body.fk_local;
+    var fk_usuario = req.body.fk_usuario;
+
+    if (nota == undefined) {
+        res.status(400).send("A nota está undefined!");
+    } else if (comentario == undefined) {
+        res.status(400).send("O comentário está undefined!");
+    } else if (fk_local == undefined) {
+        res.status(400).send("O local está undefined!");
+    } else if (fk_usuario == undefined) {
+        res.status(400).send("O usuário está undefined!");
+    } else {
+        comentarioModel.cadastrar(nota, comentario, fk_local, fk_usuario)
+            .then(function (resultado) {
+                res.status(201).json(resultado);
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao cadastrar o comentário: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
+module.exports = {
+    listar,
+    listar_por_local,
+    cadastrar
+};
+
+Conceitos:
+  - req.params.id_local -> vem NA URL (/comentarios/por_local/1).
+  - req.body.nota -> vem no CORPO da requisição (JSON do fetch/Postman).
+  - .then() = sucesso, .catch() = erro do banco.
+  - Status: 200 ok, 201 criado, 400 dados inválidos, 500 erro no
+    servidor/MySQL.
+
+PASSO 3 — CRIAR A ROTA src/routes/comentarios.js
+
+A rota só liga a URL ao controller. Crie o arquivo seguindo o padrão de
+src/routes/avisos.js:
+
+var express = require("express");
+var router = express.Router();
+
+var comentarioController = require("../controllers/comentarioController");
+
+router.get("/listar", function (req, res) {
+    comentarioController.listar(req, res);
+});
+
+router.get("/por_local/:id_local", function (req, res) {
+    comentarioController.listar_por_local(req, res);
+});
+
+router.post("/cadastrar", function (req, res) {
+    comentarioController.cadastrar(req, res);
+});
+
+module.exports = router;
+
+PASSO 4 — MONTAR A ROTA NO app.js
+
+O app.js só conhece as rotas que você registra com app.use(...). Existe
+uma função tryMount para isso. Logo depois da linha que monta /locais
+(linha 47), adicione:
+
+    tryMount('./src/routes/comentarios', '/comentarios');
+
+Sem isso, a URL /comentarios/... cai no handler de 404 (Not Found).
+
+ATENÇÃO: o tryMount tem try/catch que ignora erros silenciosamente. Se
+o seu controller/model tiver erro de sintaxe, você não verá o erro e a
+rota simplesmente não sobe. Se /comentarios/listar retornar Not Found, o
+problema está no require de algum arquivo da cadeia.
+
+PASSO 5 — CORRIGIR O BACKEND DE USUÁRIO (SENÃO LOGIN/CADASTRO NÃO
+FUNCIONAM)
+
+Comentário precisa de fk_usuario, então o usuário tem que existir/logar.
+Hoje há 3 problemas:
+
+1. src/models/usuarioModel.js — o SELECT do autenticar busca fk_empresa,
+   coluna que não existe no seu banco. Troque para:
+
+       SELECT id, nome, email FROM usuario
+       WHERE email = '${email}' AND senha = '${senha}';
+
+2. src/controllers/usuarioController.js — no autenticar, a linha que
+   chama buscarAquariosPorEmpresa(...) usa uma função que não foi
+   importada (o git diff mostra que você trocou
+   aquarioModel.buscarAquariosPorEmpresa por buscarAquariosPorEmpresa)
+   -> isso gera ReferenceError no login. O login deve apenas responder
+   id, nome, email, sem "locais/aquarios".
+
+3. src/controllers/usuarioController.js — no cadastrar, há a validação
+   fkEmpresa == undefined que devolve 400. O formulário do site
+   (ipt_nome, ipt_email, ipt_senha) não manda empresa. Remova essa
+   validação e a variável fkEmpresa.
+
+PASSO 6 — CONSERTAR src/routes/locais.js (OPCIONAL PARA COMENTÁRIOS)
+
+Esse arquivo está com erro de sintaxe:
+  - require("SELECT * from locais") -> require espera caminho de
+    arquivo, não SQL.
+  - usa aquarioController, que não foi importado.
+
+Por isso a rota /locais nunca sobe (o tryMount engole o erro). Você não
+precisa dela para os comentários, porque os dashboards já usam os ids
+fixos 1, 2 e 3. Duas opções: criar um locaisController de verdade, ou
+remover esse arquivo e a linha
+tryMount('./src/routes/locais', '/locais') do app.js. Me diga qual
+prefere antes de mexer.
+
+PASSO 7 — TESTAR (NESTA ORDEM)
+
+    npm start
+
+O servidor sobe em http://localhost:3333 (porta do .env.dev). Depois, em
+outro terminal:
+
+    # 1) cadastrar um usuário
+    curl -X POST http://localhost:3333/usuarios/cadastrar \
+      -H "Content-Type: application/json" \
+      -d "{\"nomeServer\":\"Pedro\",\"emailServer\":\"pedro@email.com\",\"senhaServer\":\"Senha123\"}"
+
+    # 2) cadastrar um comentário (use um id de usuário que exista e local 1)
+    curl -X POST http://localhost:3333/comentarios/cadastrar \
+      -H "Content-Type: application/json" \
+      -d "{\"nota\":\"5\",\"comentario\":\"Otimo lugar\",\"fk_local\":1,\"fk_usuario\":1}"
+
+    # 3) listar comentários do local 1
+    curl http://localhost:3333/comentarios/por_local/1
+
+Se o POST retornar 201 e o GET retornar o JSON, o backend está
+conversando com o banco. Só depois disso faz sentido ligar o fetch nos
+HTMLs do site/.
+
+RESUMO DA SEQUÊNCIA QUE FALTA
+
+  model (definir cadastrar) -> controller (usar comentarioModel) ->
+  rota comentarios.js -> montar no app.js -> corrigir usuário -> testar
+
+========================================================================
+FIM DO DOCUMENTO
+========================================================================

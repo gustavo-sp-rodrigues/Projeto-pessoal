@@ -41,10 +41,10 @@ const tryMount = (routePath, mountPath) => {
 
 tryMount('./src/routes/usuarios', '/usuarios');
 tryMount('./src/routes/medidas', '/medidas');
-tryMount('./src/routes/empresas', '/empresas');
+tryMount('./src/routes/comentarios', '/comentarios');
 tryMount('./src/routes/avisos', '/avisos');
 // replace aquarios route with a more generic 'locais' mount used by the Vôlei SP frontend
-tryMount('./src/routes/locais', '/locais');
+// tryMount('./src/routes/locais', '/locais');
 
 // 404 handler
 app.use((req, res) => {

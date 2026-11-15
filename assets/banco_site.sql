@@ -33,3 +33,4 @@ select * from comentario  Join locais ON locais.id = comentario.fk_local where l
 select * from comentario 
 Join locais ON locais.id = comentario.fk_local ; -- todos os comentarios
 
+select * from usuario;
