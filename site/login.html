@@ -22,7 +22,7 @@
                 <div class="home-btn">
                     <a href="home.html">Home</a>
                   
-                    <a href="dashboard_pelezao.html">Dashboard</a>
+                    <a href="dashboard_pelezao.html">comentarios</a>
                     
                     
                     <a href="login.html">login</a>
@@ -48,15 +48,15 @@
             <div class="titulo">
                 <h1>Entre no jogo</h1>
             </div>
-            <label for="ipt_login">Seu email</label>
-            <input type="text" id="ipt_login">
+            <label for="ipt_email">Seu email</label>
+            <input type="text" id="ipt_email">
 
             <label for="ipt_senha">Senha:</label>
             <input type="text " id="ipt_senha">
 
           
             <div class="btn-entrar">
-                <button onclick="logar()">Login</button>
+                <button onclick="entrar()">Login</button>
             </div>
 
         </div>
@@ -67,19 +67,39 @@
 
 </html>
 <script>
-    
-function logar() {
+    function entrar() {
+        let email = document.getElementById("ipt_email").value;
+        let senha = document.getElementById("ipt_senha").value;
+        let div_msg = document.getElementById("div_msg");
 
-if (ipt_login.value != "" && ipt_senha.value != "") {
-    
-    
-    setTimeout(() => {
-        window.location.href = 'espera1.html';
-    }, 300);
- } else {
-    div_msg = `Senha ou e-mail incorretos`
- }
+        if (email == "" || senha == "") {
+            div_msg.innerHTML = "Preencha e-mail e senha.";
+            return;
+        }
 
-}
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senha
+            })
+        }).then(function (resposta) {
+            if (resposta.status == 200) {
+                return resposta.json();
+            } else {
+                return resposta.text().then(function (texto) {
+                    throw new Error(texto);
+                });
+            }
+        }).then(function (usuario) {
+            sessionStorage.ID_USUARIO = usuario.id;
+            sessionStorage.NOME_USUARIO = usuario.nome;
+            sessionStorage.EMAIL_USUARIO = usuario.email;
 
+            window.location.href = "espera1.html";
+        }).catch(function (erro) {
+            div_msg.innerHTML = erro.message;
+        });
+    }
 </script>

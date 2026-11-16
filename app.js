@@ -17,6 +17,12 @@ const PORT = process.env.APP_PORT || process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// quando acessar a raiz abrir o site volei sp
+app.get('/', function (req, res){
+  res.redirect("/site/home.html");
+});
+
+
 // static folders
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/site', express.static(path.join(__dirname, 'site')));

@@ -18,11 +18,11 @@ function autenticar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
-                        res.JSON={
+                        res.json({
                             id: resultadoAutenticar[0].id,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome
-                        }
+                        });
                         
                        
                                     // Não enviar senha na resposta por segurança

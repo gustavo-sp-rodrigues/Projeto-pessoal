@@ -13,7 +13,7 @@ router.get("/por_local/:id_local", function (req, res) {
     comentarioController.listar_por_local(req, res);
 });
 
-router.post("/buscar/:id", function (req, res) {
+router.post("/cadastrar", function (req, res) {
   comentarioController.cadastrar(req, res);
 });
 

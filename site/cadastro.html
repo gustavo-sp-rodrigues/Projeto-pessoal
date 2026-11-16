@@ -24,7 +24,7 @@
                     <div class="home-btn">
                         <a href="home.html">Home</a>
 
-                        <a href="dashboard_pelezao.html">Dashboard</a>
+                        <a href="dashboard_pelezao.html">comentarios</a>
 
 
                         <a href="login.html">login</a>
@@ -86,71 +86,56 @@
 
 </html>
 <script>
-
     function login() {
-        window.location.href = 'login.html';
+        window.location.href = "login.html";
     }
 
     function cadastro() {
+        let nome = document.getElementById("ipt_nome").value;
+        let email = document.getElementById("ipt_email").value;
+        let senha = document.getElementById("ipt_senha").value;
+        let confirmarSenha = document.getElementById("ipt_confirmarsenha").value;
+        let div_msg = document.getElementById("div_msg");
 
-        let nome = ipt_nome.value;
-        let email = ipt_email.value;
-        let senha = ipt_senha.value;
-        let confirmarSenha = ipt_confirmarsenha.value;
-
-        let criterios = 0;
-
-        if (senha.length >= 8) {
-            criterios++;
+        if (nome == "" || email == "" || senha == "" || confirmarSenha == "") {
+            div_msg.innerHTML = '<span style="color: brown;">Preencha todos os campos.</span>';
+            return;
+        }
+        
+        if (!email.includes("@")) {
+            div_msg.innerHTML = '<span style="color: brown;">Digite um e-mail válido.</span>';
+            return;
         }
 
-        if (senha.match(/[A-Z]/)) {
-            criterios++;
+        if (senha != confirmarSenha) {
+            div_msg.innerHTML = '<span style="color: brown;">As senhas não são iguais.</span>';
+            return;
         }
 
-        if (senha.match(/[0-9]/)) {
-            criterios++;
-        }
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha
+            })
+        })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                div_msg.innerHTML = '<span style="color: green;">Cadastro realizado! Redirecionando para o login...</span>';
 
-        if (nome != '') {
-
-            if (email.includes('@')) {
-
-                if (criterios == 3) {
-
-                    if (confirmarSenha == senha) {
-
-                        div_msg.innerHTML = '<span class="acerto">Cadastro realizado com sucesso!</span>';
-
-                        ipt_nome.value = '';
-                        ipt_email.value = '';
-                        ipt_senha.value = '';
-                        ipt_confirmarsenha.value = '';
-
-
-
-
-
-                        setTimeout(() => {
-                            window.location.href = 'espera.html';
-                        }, 300);
-
-                    } else {
-                        div_msg.innerHTML = '<span style="color: brown;">As senhas não são iguais!</span>';
-                    }
-
-                } else {
-                    div_msg.innerHTML = '<span style="color: brown;">A senha precisa ter 8 caracteres, uma letra maiúscula e um número!</span>';
-                }
-
+                setTimeout(function () {
+                    window.location.href = "espera.html";
+                }, 1200);
             } else {
-                div_msg.innerHTML = '<span style="color: brown;">Digite um e-mail válido!</span>';
+                return resposta.text().then(function (texto) {
+                    throw new Error(texto);
+                });
             }
-
-        } else {
-            div_msg.innerHTML = '<span style="color: brown;">Digite o nome de usuário!</span>';
-        }
+        })
+        .catch(function (erro) {
+            div_msg.innerHTML = '<span style="color: brown;">Erro: ' + erro.message + '</span>';
+        });
     }
-
-
 </script>
