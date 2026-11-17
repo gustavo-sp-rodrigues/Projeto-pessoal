@@ -34,6 +34,7 @@
                     
                     <a href="login.html">login</a>
                     <a href="cadastro.html">cadastro</a>
+                    <button type="button" id="btn_sair" style="display: none;" onclick="limpar_sessao()">Encerrar sessão</button>
                     
                 </div>
 
@@ -56,10 +57,33 @@
                 <option value="3">Sesc Pompéia</option>
             </select>
 
+            <p id="aviso_visitante" class="aviso-visitante" style="display: none;">
+                Cadastre-se para comentar e avaliar este local.
+                <a href="espera.html">Criar conta</a>
+            </p>
+
             <form class="form-comentario" onsubmit="enviar_comentario(); return false;">
-                <label for="sel_nota">Nota (1 a 5)</label>
-                <select id="sel_nota">
-                     <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
+                <label for="nota_localizacao">Nota Localização ✰✰✰✰✰</label>
+                <select id="nota_localizacao">
+                    <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
+                    <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
+                    <option value="3">3 - Bom ⭐⭐⭐</option>
+                    <option value="2">2 - Regular ⭐⭐</option>
+                    <option value="1">1 - Ruim ⭐</option>
+                </select>
+
+                <label for="nota_estrutura">Nota Estrutura ✰✰✰✰✰</label>
+                <select id="nota_estrutura">
+                    <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
+                    <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
+                    <option value="3">3 - Bom ⭐⭐⭐</option>
+                    <option value="2">2 - Regular ⭐⭐</option>
+                    <option value="1">1 - Ruim ⭐</option>
+                </select>
+
+                <label for="nota_ambiente">Nota Ambiente ✰✰✰✰✰</label>
+                <select id="nota_ambiente">
+                    <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
                     <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
                     <option value="3">3 - Bom ⭐⭐⭐</option>
                     <option value="2">2 - Regular ⭐⭐</option>
@@ -75,10 +99,18 @@
         </div>
 
         <div class="container-direita">
-            <h2>Villa Lobos</h2>
+             <div class="titulo_comentario">
 
-            <div class="kpi" id="kpi_media">nota média<br>-</div>
-            <div class="kpi" id="kpi_total">avaliações recebidas<br>0</div>
+                <a href="dashboard_sesc.html">Sesc</a>   
+                <a href="dashboard_villa.html">VillaLobos</a>
+                <a href="dashboard_pelezao.html">Pelezão</a>
+
+            </div>
+
+            <div class="kpis">
+                <div class="kpi" id="kpi_media">nota média<br>-</div>
+                <div class="kpi" id="kpi_total">avaliações recebidas<br>0</div>
+            </div>
 
             <span>Notas do Parque Villa-Lobos</span>
 
@@ -86,11 +118,10 @@
                 <canvas id="myChart"></canvas>
             </div>
 
-            <details>
-                <summary>comentários da comunidade</summary>
+           <h2>comentários da comunidade</h2>
 
-                <div id="lista_comentarios"></div>
-            </details>
+                <div id="lista_comentarios" class="comentario"></div>
+           
         </div>
     </div>
 

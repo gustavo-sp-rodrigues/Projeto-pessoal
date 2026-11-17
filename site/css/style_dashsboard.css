@@ -200,18 +200,17 @@ button:hover {
 
 
 
-details {
+.comentario{
+    border-radius: 2px;
+    color: #000000;
     background-color: #b9e0ff;
-    padding: 20px;
-    border-radius: 12px;
-    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
 }
 
-summary {
-    color: #003566;
-    font-weight: bold;
-    font-size: 17px;
-}
 
 details h6 {
     background-color: #eef8ff;
@@ -220,4 +219,49 @@ details h6 {
     border-radius: 8px;
     color: #17324d;
     font-size: 14px;
+}
+
+#lista_comentarios hr {
+    border: 0;
+    border-top: 2px solid #fdfdfd;
+    margin: 12px 0;
+}
+
+.aviso-visitante {
+    background-color: #eef8ff;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.aviso-visitante a {
+    color: #10283D;
+}
+
+#btn_sair {
+    background-color: #f0ed31;
+    color: #10283D;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.titulo_comentario{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.titulo_comentario a{
+  color: #000000;
+  font-size: xx-large;
+  transition: 0.3s;
+}
+
+.titulo_comentario a:hover{
+  transform: translateY(-3px);
+  color: #f0ed31;
 }

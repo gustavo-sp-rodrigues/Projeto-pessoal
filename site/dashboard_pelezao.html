@@ -34,6 +34,7 @@
                     
                     <a href="login.html">login</a>
                     <a href="cadastro.html">cadastro</a>
+                    <button type="button" id="btn_sair" style="display: none;" onclick="limpar_sessao()">Encerrar sessão</button>
                     
                 </div>
 
@@ -55,9 +56,14 @@
                 <option value="3">Sesc Pompéia</option>
             </select>
 
+            <p id="aviso_visitante" class="aviso-visitante" style="display: none;">
+                Cadastre-se para comentar e avaliar este local.
+               <a href="espera.html">Criar conta</a>
+            </p>
+
             <form class="form-comentario" onsubmit="enviar_comentario(); return false;">
-                <label for="sel_nota">Nota Localização ✰✰✰✰✰</label>
-                <select id="sel_nota">
+                <label for="nota_localizacao">Nota Localização ✰✰✰✰✰</label>
+                <select id="nota_localizacao">
                     <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
                     <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
                     <option value="3">3 - Bom ⭐⭐⭐</option>
@@ -65,9 +71,8 @@
                     <option value="1">1 - Ruim ⭐</option>
                 </select>
 
-                 <form class="form-comentario" onsubmit="enviar_comentario(); return false;">
-                <label for="sel_nota">Nota estrutura ✰✰✰✰✰</label>
-                <select id="sel_nota">
+                <label for="nota_estrutura">Nota Estrutura ✰✰✰✰✰</label>
+                <select id="nota_estrutura">
                     <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
                     <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
                     <option value="3">3 - Bom ⭐⭐⭐</option>
@@ -75,9 +80,8 @@
                     <option value="1">1 - Ruim ⭐</option>
                 </select>
 
-                 <form class="form-comentario" onsubmit="enviar_comentario(); return false;">
-                <label for="sel_nota">Nota Localização ✰✰✰✰✰</label>
-                <select id="sel_nota">
+                <label for="nota_ambiente">Nota Ambiente ✰✰✰✰✰</label>
+                <select id="nota_ambiente">
                     <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
                     <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
                     <option value="3">3 - Bom ⭐⭐⭐</option>
@@ -94,7 +98,15 @@
         </div>
 
         <div class="container-direita">
-            <h2>Pelezão</h2>
+            <div class="titulo_comentario">
+
+                <a href="dashboard_sesc.html">Sesc</a>   
+                <a href="dashboard_pelezao.html">Pelezão</a>
+                <a href="dashboard_villa.html">VillaLobos</a>
+
+            </div>
+
+
 <div class="kpis">
 
     <div class="kpi" id="kpi_media">nota média<br>-</div>
@@ -107,27 +119,16 @@
                 <canvas id="myChart"></canvas>
             </div>
 
-            <details>
-                <summary>comentários da comunidade</summary>
+            
+                <h2>comentários da comunidade</h2>
 
                 <div id="lista_comentarios"></div>
-            </details>
+                <hr>
         </div>
     </div>
 
     <script src="js/sessao.js"></script>
-    <script src="js/dashboard.js">
-
-let nomeUsuario = document.getElementById("nome_usuario").textContent.trim();
-
-if (nomeUsuario === "visitante") {
-comentario.HTML = ``
-} else {
-  console.log("Comentários liberados para: " + nomeUsuario);
-}
-
-
-    </script>
+    <script src="js/dashboard.js"></script>
 </body>
 
 </html>
