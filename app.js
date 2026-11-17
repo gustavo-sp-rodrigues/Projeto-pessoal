@@ -18,16 +18,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // quando acessar a raiz abrir o site volei sp
-app.get('/', function (req, res){
-  res.redirect("/site/home.html");
+app.post('/login', (req, res) => { 
+  res.redirect('/home');
 });
 
 
 // static folders
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'site')));
 app.use('/site', express.static(path.join(__dirname, 'site')));
 // allow the site frontend to access public assets via /site/assets/banco_site
-app.use('/site/assets/banco_site', express.static(path.join(__dirname, 'public', 'assets')));
+app.use('/site/assets/banco_site', express.static(path.join(__dirname, 'site', 'assets')));
 
 // mount routers if they exist
 try {
@@ -53,7 +53,7 @@ tryMount('./src/routes/avisos', '/avisos');
 // tryMount('./src/routes/locais', '/locais');
 
 // 404 handler
-app.use((req, res) => {
+app.use(( req,res) => {
   res.status(404).send('Not Found');
 });
 

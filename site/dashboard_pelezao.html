@@ -16,25 +16,34 @@
         <div class="header">
 
             <div class="logo">
-                <img src="img/imagem_logo.png" alt="">
+                <span class="bola"><img src="img/imagem_logo.png" alt=""></span>
+                
             </div>
 
             <nav>
                 <div class="home-btn">
-                    <a href="home.html">Home</a>
-                    <a href="dashboard_sesc.html">Dashboard</a>
+                    <a href="index.html">Home</a>
+                    <a href="index.html#historia">História </a>
+                    <a href="index.html#posicoes">Posições</a>
+                    <a href="index.html#lugares">Lugares</a>
+                    <a href="dashboard_pelezao.html">Pelezão</a>
+                    <a href="dashboard_villa.html">Villa-Lobos</a>
+                    <a href="dashboard_sesc.html">Sesc</a>
 
-
+                    
+                    
                     <a href="login.html">login</a>
                     <a href="cadastro.html">cadastro</a>
+                    
                 </div>
+
             </nav>
+
         </div>
     </header>
-
     <div class="container-geral">
 
-        <div class="container-esquerda">
+        <div id="comentario" class="container-esquerda">
 
             <div class="usuario">
                 <h2>Olá: <span id="nome_usuario">visitante</span></h2>
@@ -47,7 +56,27 @@
             </select>
 
             <form class="form-comentario" onsubmit="enviar_comentario(); return false;">
-                <label for="sel_nota">Nota (1 a 5)</label>
+                <label for="sel_nota">Nota Localização ✰✰✰✰✰</label>
+                <select id="sel_nota">
+                    <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
+                    <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
+                    <option value="3">3 - Bom ⭐⭐⭐</option>
+                    <option value="2">2 - Regular ⭐⭐</option>
+                    <option value="1">1 - Ruim ⭐</option>
+                </select>
+
+                 <form class="form-comentario" onsubmit="enviar_comentario(); return false;">
+                <label for="sel_nota">Nota estrutura ✰✰✰✰✰</label>
+                <select id="sel_nota">
+                    <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
+                    <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
+                    <option value="3">3 - Bom ⭐⭐⭐</option>
+                    <option value="2">2 - Regular ⭐⭐</option>
+                    <option value="1">1 - Ruim ⭐</option>
+                </select>
+
+                 <form class="form-comentario" onsubmit="enviar_comentario(); return false;">
+                <label for="sel_nota">Nota Localização ✰✰✰✰✰</label>
                 <select id="sel_nota">
                     <option value="5">5 - Excelente ⭐⭐⭐⭐⭐</option>
                     <option value="4">4 - Muito bom ⭐⭐⭐⭐</option>
@@ -66,9 +95,11 @@
 
         <div class="container-direita">
             <h2>Pelezão</h2>
+<div class="kpis">
 
-            <div class="kpi" id="kpi_media">nota média<br>-</div>
-            <div class="kpi" id="kpi_total">avaliações recebidas<br>0</div>
+    <div class="kpi" id="kpi_media">nota média<br>-</div>
+    <div class="kpi" id="kpi_total">avaliações recebidas<br>0</div>
+</div>
 
             <span>Notas do Pelezão</span>
 
@@ -85,7 +116,18 @@
     </div>
 
     <script src="js/sessao.js"></script>
-    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard.js">
+
+let nomeUsuario = document.getElementById("nome_usuario").textContent.trim();
+
+if (nomeUsuario === "visitante") {
+comentario.HTML = ``
+} else {
+  console.log("Comentários liberados para: " + nomeUsuario);
+}
+
+
+    </script>
 </body>
 
 </html>

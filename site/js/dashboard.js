@@ -49,11 +49,11 @@ function desenhar_grafico(lista) {
     grafico = new Chart(ctx, {
         type: "bar",
         data: {
-            labels: ["1★", "2★", "3★", "4★", "5★"],
+            labels: ["localização", "estrutura", "ambiente"],
             datasets: [{
                 label: "Quantidade de notas",
                 data: contagem,
-                backgroundColor: ["#E74C3C", "#E67E22", "#F1C40F", "#2ECC71", "#3498DB"]
+                backgroundColor: ["#F1C40F", "#2ECC71", "#3498DB"]
             }]
         },
         options: {

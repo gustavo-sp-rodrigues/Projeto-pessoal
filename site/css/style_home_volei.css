@@ -9,6 +9,17 @@
 
 html {
   scroll-behavior: smooth;
+   scroll-margin-top: 80px;
+}
+
+#historia   {
+    scroll-margin-top: 100px;
+}
+#posicoes{
+    scroll-margin-top: 100px;
+}
+#lugares{
+    scroll-margin-top: 100px;
 }
 
 body {
@@ -62,7 +73,7 @@ header nav {
 }
 
 .home-btn a {
-  color: #ffffff;
+    color: #f0ed31;
   text-decoration: none;
   transition: 0.3s;
 }
