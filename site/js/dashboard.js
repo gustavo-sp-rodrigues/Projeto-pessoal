@@ -36,6 +36,8 @@ function escapar(texto) {
 // Mostra o formulário de comentário apenas para quem está logado.
 // Se não houver ID_USUARIO no sessionStorage, esconde o formulário e
 // exibe o aviso "Cadastre-se para comentar".
+// O gráfico e a lista de comentários continuam aparecendo para todos,
+// pois são carregados por carregar_comentarios().
 function ajustar_area_comentario() {
     let logado = sessionStorage.ID_USUARIO ? true : false;
     let formulario = document.querySelector(".form-comentario");
@@ -48,6 +50,7 @@ function ajustar_area_comentario() {
         aviso.style.display = "none";
         btn_sair.style.display = "block";
     } else {
+        // Visitante: só o formulário some; os comentários e o gráfico ficam.
         formulario.style.display = "none";
         aviso.style.display = "block";
         btn_sair.style.display = "none";

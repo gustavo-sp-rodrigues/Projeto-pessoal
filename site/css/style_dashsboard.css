@@ -194,7 +194,7 @@ button:hover {
 }
 .kpis{
      display: flex;
-    flex-direction: row;
+    justify-content: space-evenly;
     gap: 20px;
 }
 
