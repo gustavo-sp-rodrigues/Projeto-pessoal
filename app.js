@@ -1,68 +1,53 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const dotenv = require('dotenv');
+// var ambiente_processo = 'producao';
+var ambiente_processo = 'desenvolvimento';
 
-// load environment variables: prefer .env, fallback to .env.dev if present
-if (fs.existsSync(path.join(__dirname, '.env'))) {
-  dotenv.config({ path: path.join(__dirname, '.env') });
-} else if (fs.existsSync(path.join(__dirname, '.env.dev'))) {
-  dotenv.config({ path: path.join(__dirname, '.env.dev') });
-}
+var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
+// Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
+// A sintaxe do operador ternário é: condição ? valor_se_verdadeiro : valor_se_falso
 
-const app = express();
-const PORT = process.env.APP_PORT || process.env.PORT || 3000;
+require("dotenv").config({ path: caminho_env });
 
-// parse body
+var express = require("express");
+var cors = require("cors");
+var path = require("path");
+var PORTA_APP = process.env.APP_PORT;
+var HOST_APP = process.env.APP_HOST;
+
+var app = express();
+
+var indexRouter = require("./src/routes/index");
+var usuarioRouter = require("./src/routes/usuarios");
+var avisosRouter = require("./src/routes/avisos");
+var medidasRouter = require("./src/routes/medidas");
+var aquariosRouter = require("./src/routes/aquarios");
+var comentariosRouter = require("./src/routes/comentarios");
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "site")));
 
-// quando acessar a raiz abrir o site volei sp
-app.post('/login', (req, res) => { 
-  res.redirect('/home');
-});
+app.use(cors());
 
+app.use("/", indexRouter);
+app.use("/usuarios", usuarioRouter);
+app.use("/avisos", avisosRouter);
+app.use("/medidas", medidasRouter);
+app.use("/aquarios", aquariosRouter);
+app.use("/comentarios", comentariosRouter);
 
-// static folders
-app.use(express.static(path.join(__dirname, 'site')));
-app.use('/site', express.static(path.join(__dirname, 'site')));
-// allow the site frontend to access public assets via /site/assets/banco_site
-app.use('/site/assets/banco_site', express.static(path.join(__dirname, 'site', 'assets')));
-
-// mount routers if they exist
-try {
-  const indexRouter = require('./src/routes/index');
-  app.use('/', indexRouter);
-} catch (err) {
-  // ignore if not present
-}
-
-const tryMount = (routePath, mountPath) => {
-  try {
-    app.use(mountPath, require(routePath));
-  } catch (err) {
-    // ignore missing route files
-  }
-};
-
-tryMount('./src/routes/usuarios', '/usuarios');
-tryMount('./src/routes/medidas', '/medidas');
-tryMount('./src/routes/comentarios', '/comentarios');
-tryMount('./src/routes/avisos', '/avisos');
-// replace aquarios route with a more generic 'locais' mount used by the Vôlei SP frontend
-// tryMount('./src/routes/locais', '/locais');
-
-// 404 handler
-app.use(( req,res) => {
-  res.status(404).send('Not Found');
-});
-
-app.listen(PORT, () => {
-  // banner similar ao original pedido: "WEB DATA VIZ" em destaque
-  console.log('\n\n#############################################################');
-  console.log('#                                                           #');
-  console.log('#                      WEB   DATA   VIZ                      #');
-  console.log('#                                                           #');
-  console.log('#############################################################\n');
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORTA_APP, function () {
+    console.log(`
+    ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
+    ##   ##  ##       ##  ##            ## ##     ####      ##      ####             ##  ##     ##         ##  
+    ##   ##  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##        ##   
+    ## # ##  ####     #####    ######   ##  ##   ######     ##     ######   ######   ##  ##     ##       ##    
+    #######  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##      ##     
+    ### ###  ##       ##  ##            ## ##    ##  ##     ##     ##  ##             ####      ##     ##      
+    ##   ##  ######   #####             ####     ##  ##     ##     ##  ##              ##      ####    ######  
+    \n\n\n                                                                                                 
+    Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n
+    Você está rodando sua aplicação em ambiente de .:${process.env.AMBIENTE_PROCESSO}:. \n\n
+    \tSe .:desenvolvimento:. você está se conectando ao banco local. \n
+    \tSe .:producao:. você está se conectando ao banco remoto. \n\n
+    \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
 });

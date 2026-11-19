@@ -64,11 +64,11 @@ function carregar_comentarios() {
     fetch("/comentarios/por_local/" + id_local)
         // A resposta chega como JSON; transformamos em um array JavaScript ("lista").
         .then(function (resposta) { return resposta.json(); })
-        .then(function (lista) {
+        .then(function (lista_comentario) {
             // Com a lista em mãos, atualizamos as três partes da tela:
-            preencher_kpis(lista);
-            desenhar_grafico(lista);
-            listar_comentarios(lista);
+            preencher_kpis(lista_comentario);
+            desenhar_grafico(lista_comentario);
+            listar_comentarios(lista_comentario);
         })
         .catch(function (erro) {
             // Se a requisição falhar (servidor fora do ar, rota errada etc.),

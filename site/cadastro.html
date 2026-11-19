@@ -26,10 +26,7 @@
                     <a href="index.html#historia">História </a>
                     <a href="index.html#posicoes">Posições</a>
                     <a href="index.html#lugares">Lugares</a>
-                    <a href="dashboard_pelezao.html">Pelezão</a>
-                    <a href="dashboard_villa.html">Villa-Lobos</a>
-                    <a href="dashboard_sesc.html">Sesc</a>
-
+                
                     
                     
                     <a href="login.html">login</a>
@@ -101,6 +98,14 @@
         let senha = document.getElementById("ipt_senha").value;
         let confirmarSenha = document.getElementById("ipt_confirmarsenha").value;
         let div_msg = document.getElementById("div_msg");
+        let tamanho = senha.length >= 8;
+        let maiusculas = senha != senha.toLowerCase();
+        let minusculas = senha != senha.toUpperCase();
+        let numero = senha != senha.includes(Number);
+        let criterios = 0;
+
+
+
 
         if (nome == "" || email == "" || senha == "" || confirmarSenha == "") {
             div_msg.innerHTML = '<span style="color: brown;">Preencha todos os campos.</span>';
@@ -111,11 +116,33 @@
             div_msg.innerHTML = '<span style="color: brown;">Digite um e-mail válido.</span>';
             return;
         }
+       
+
+if (maiusculas) {
+    criterios ++
+}
+if (minusculas) {
+    criterios ++
+}
+if (tamanho) {
+    criterios ++
+}
+
+
+
+if (criterios < 3) {
+     div_msg.innerHTML = `A senha precisa no minimo oito caracteres uma letra maiuscula e 1 número`
+}
+
 
         if (senha != confirmarSenha) {
             div_msg.innerHTML = '<span style="color: brown;">As senhas não são iguais.</span>';
             return;
         }
+
+
+            
+        
 
         fetch("/usuarios/cadastrar", {
             method: "POST",

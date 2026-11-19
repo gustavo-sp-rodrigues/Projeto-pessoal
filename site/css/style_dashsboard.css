@@ -11,6 +11,7 @@ body {
   color: #10283D;
  
 }
+
 h2 {
     align-self: center;
 }
@@ -250,15 +251,30 @@ details h6 {
 }
 
 .titulo_comentario{
-  display: flex;
-  justify-content: space-between;
-
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    
+   
+  
+  }
+.selecionado{
+ background-color: #b9e0ff;
+    padding: 25px;
+    border-radius: 12px;
+    font-weight: bold;
 }
+
 
 .titulo_comentario a{
   color: #000000;
   font-size: xx-large;
   transition: 0.3s;
+padding: 25PX;
+    text-align: center;
+
 }
 
 .titulo_comentario a:hover{
