@@ -364,16 +364,18 @@ section.fundo {
 
 
 footer {
-  margin-top: 40px;
+    position: sticky;
+  z-index: 1000;
+  width: 100%;
 }
 
 .foot {
-  padding: 20px 8%;
+    padding: 12px 8%;
   background-color: #10283D;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  width: 100%;
 }
 
 .foot .logo {
