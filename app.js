@@ -24,7 +24,7 @@ var comentariosRouter = require("./src/routes/comentarios");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "site")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
