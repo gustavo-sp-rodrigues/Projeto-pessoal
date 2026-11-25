@@ -1,5 +1,7 @@
 var database = require("../database/config");
 
+// não usado
+
 function buscarUltimasMedidas(idAquario, limite_linhas) {
 
     var instrucaoSql = `SELECT 

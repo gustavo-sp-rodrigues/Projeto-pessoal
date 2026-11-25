@@ -12,18 +12,17 @@ var comentarioController = require("../controllers/comentarioController");
 //   -> chama comentarioController.listar_por_local(req, res)
 // ============================================================================
 
-// GET /comentarios/listar -> lista todos os comentários.
+//  lista todos os comentários.
 router.get("/listar", function (req, res) {
     comentarioController.listar(req, res);
 })
 
-// GET /comentarios/por_local/:id_local -> lista os comentários de um local.
-// O trecho ":id_local" é um parâmetro variável que chega em req.params.
+// lista os comentários de um local.
 router.get("/por_local/:id_local", function (req, res) {
     comentarioController.listar_por_local(req, res);
 });
 
-// POST /comentarios/cadastrar -> cadastra um novo comentário com as três notas.
+//  cadastra um novo comentário com as três notas.
 router.post("/cadastrar", function (req, res) {
     comentarioController.cadastrar(req, res);
 });

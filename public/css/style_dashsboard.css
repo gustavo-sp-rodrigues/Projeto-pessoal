@@ -163,7 +163,11 @@ select {
     color: #10283D;
     cursor: pointer;
 }
-
+.escondido{
+    background-color: #b9e0ff;
+    color: #b9e0ff;
+    border: none; 
+}
 
 button {
     background-color: #10283D;

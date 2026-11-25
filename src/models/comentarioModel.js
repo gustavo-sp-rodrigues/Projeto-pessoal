@@ -1,13 +1,9 @@
 var database = require("../database/config");
 
-// ============================================================================
-// MODEL: é a camada que conversa diretamente com o MySQL.
-// Aqui ficam apenas as instruções SQL. Quem chama estas funções é o Controller.
-// ============================================================================
+
 
 // Busca TODOS os comentários do banco, juntando o nome do local e o nome do usuário.
-// O JOIN serve para "ligar" a tabela comentario com locais e usuario através das
-// chaves estrangeiras (fk_local e fk_usuario).
+
 function listar() {
     var instrucaoSql = `
         SELECT c.id,
