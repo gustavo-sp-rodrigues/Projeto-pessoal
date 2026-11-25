@@ -28,7 +28,7 @@
                     <a href="index.html#lugares">Lugares</a>
                 
                     
-                    
+                    <a href="dashboard_pelezao.html">Comentários</a>
                     <a href="login.html">Login</a>
                     <a href="cadastro.html">Cadastro</a>
                     
@@ -98,12 +98,10 @@
         let senha = document.getElementById("ipt_senha").value;
         let confirmarSenha = document.getElementById("ipt_confirmarsenha").value;
         let div_msg = document.getElementById("div_msg");
-        let tamanho = senha.length >= 8;
-        let maiusculas = senha != senha.toLowerCase();
-        let minusculas = senha != senha.toUpperCase();
-        let numero = senha != senha.includes(Number);
-        let criterios = 0;
 
+        let temTamanho = senha.length >= 8;
+        let temMaiuscula = senha != senha.toLowerCase();
+        let temNumero = /[0-9]/.test(senha);
 
 
 
@@ -116,22 +114,13 @@
             div_msg.innerHTML = '<span style="color: brown;">Digite um e-mail válido.</span>';
             return;
         }
+
+        if (!temTamanho || !temMaiuscula || !temNumero) {
+            div_msg.innerHTML = '<span style="color: brown;">A senha deve ter pelo menos 8 caracteres, uma letra maiúscula e um número.</span>';
+            return; }
        
 
-if (maiusculas) {
-    criterios ++
-}
-if (minusculas) {
-    criterios ++
-}
-if (tamanho) {
-    criterios ++
-}
 
-
-else {
-        div_msg.innerHTML = '<span style="color: brown;">Erro: ' + erro.message + '</span>';
-}
 
 
         if (senha != confirmarSenha) {
