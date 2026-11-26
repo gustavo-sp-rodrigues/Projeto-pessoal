@@ -239,9 +239,7 @@ section.fundo {
   font-size: 21px;
 }
 
-.posicao-container .posições p {
-  line-height: 1.6;
-}
+
 
 .posicao-container .posições .emoji {
   background-color: #233C77;
@@ -255,7 +253,13 @@ section.fundo {
   font-size: 40px;
   border-radius: 15px;
 }
-
+.emoji_foto img {
+  width: 100px;       
+  height: 100px;      
+  object-fit: cover; 
+  border-radius: 50%;
+   
+}
 
 
 
