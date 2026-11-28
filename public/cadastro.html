@@ -13,31 +13,31 @@
     <div id="total">
 
         <header>
-        <div class="header">
+            <div class="header">
 
-            <div class="logo">
-                <span class="bola"><img src="img/imagem_logo.png" alt=""></span>
-                
-            </div>
+                <div class="logo">
+                    <span class="bola"><img src="img/imagem_logo.png" alt=""></span>
 
-            <nav>
-                <div class="home-btn">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#historia">História </a>
-                    <a href="index.html#posicoes">Posições</a>
-                    <a href="index.html#lugares">Lugares</a>
-                
-                    
-                    <a href="dashboard_pelezao.html">Comentários</a>
-                    <a href="login.html">Login</a>
-                    <a href="cadastro.html">Cadastro</a>
-                    
                 </div>
 
-            </nav>
+                <nav>
+                    <div class="home-btn">
+                        <a href="index.html">Home</a>
+                        <a href="index.html#historia">História </a>
+                        <a href="index.html#posicoes">Posições</a>
+                        <a href="index.html#lugares">Lugares</a>
 
-        </div>
-    </header>
+
+                        <a href="dashboard_pelezao.html">Comentários</a>
+                        <a href="login.html">Login</a>
+                        <a href="cadastro.html">Cadastro</a>
+
+                    </div>
+
+                </nav>
+
+            </div>
+        </header>
 
 
 
@@ -63,10 +63,27 @@
                 <input type="text" id="ipt_email">
 
                 <label for="ipt_senha">Senha:</label>
-                <input type="text " id="ipt_senha">
 
-                <label for="ipt_senha">Confirmar sua senha:</label>
-                <input type="text " id="ipt_confirmarsenha">
+                <div class="campo-senha">
+                    <input type="password" id="ipt_senha">
+
+                    <button class="btn-olho" id="btn_mostrar_senha"
+                        onclick="alternar_senha('ipt_senha', 'btn_mostrar_senha')">
+                        ⌣
+                    </button>
+                </div>
+
+
+                <label for="ipt_confirmarsenha">Confirmar sua senha:</label>
+
+                <div class="campo-senha">
+                    <input type="password" id="ipt_confirmarsenha">
+
+                    <button class="btn-olho" id="btn_mostrar_senha1"
+                        onclick="alternar_senha('ipt_confirmarsenha', 'btn_mostrar_senha1')">
+                        ⌣
+                    </button>
+                </div>
 
 
                 <div class="btn-entrar">
@@ -88,6 +105,33 @@
 
 </html>
 <script>
+    function alternar_senha(id_campo, id_botao) {
+        let campo = document.getElementById(id_campo);
+        let botao = document.getElementById(id_botao);
+
+        if (campo.type == "password") {
+            campo.type = "text";
+            botao.textContent = "👁";
+        } else {
+            campo.type = "password";
+            botao.textContent = "⌣";
+        }
+    }
+
+    function alternar_senha(id_campo, id_botao) {
+        let campo = document.getElementById(id_campo);
+        let botao = document.getElementById(id_botao);
+
+        if (campo.type == "password") {
+            campo.type = "text";
+            botao.textContent = "👁";
+        } else {
+            campo.type = "password";
+            botao.textContent = "⌣";
+        }
+    }
+
+
     function login() {
         window.location.href = "login.html";
     }
@@ -109,7 +153,7 @@
             div_msg.innerHTML = '<span style="color: brown;">Preencha todos os campos.</span>';
             return;
         }
-        
+
         if (!email.includes("@")) {
             div_msg.innerHTML = '<span style="color: brown;">Digite um e-mail válido.</span>';
             return;
@@ -117,8 +161,9 @@
 
         if (!temTamanho || !temMaiuscula || !temNumero) {
             div_msg.innerHTML = '<span style="color: brown;">A senha deve ter pelo menos 8 caracteres, uma letra maiúscula e um número.</span>';
-            return; }
-       
+            return;
+        }
+
 
 
 
@@ -129,8 +174,8 @@
         }
 
 
-            
-        
+
+
 
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -141,21 +186,21 @@
                 senhaServer: senha
             })
         })
-        .then(function (resposta) {
-            if (resposta.ok) {
-                div_msg.innerHTML = '<span style="color: green;">Cadastro realizado! Redirecionando para o login...</span>';
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    div_msg.innerHTML = '<span style="color: green;">Cadastro realizado! Redirecionando para o login...</span>';
 
-                setTimeout(function () {
-                    window.location.href = "espera.html";
-                }, 1200);
-            } else {
-                return resposta.text().then(function (texto) {
-                    throw new Error(texto);
-                });
-            }
-        })
-        .catch(function (erro) {
-            div_msg.innerHTML = '<span style="color: brown;">Erro: ' + erro.message + '</span>';
-        });
+                    setTimeout(function () {
+                        window.location.href = "espera.html";
+                    }, 1200);
+                } else {
+                    return resposta.text().then(function (texto) {
+                        throw new Error(texto);
+                    });
+                }
+            })
+            .catch(function (erro) {
+                div_msg.innerHTML = '<span style="color: brown;">Erro: ' + erro.message + '</span>';
+            });
     }
 </script>

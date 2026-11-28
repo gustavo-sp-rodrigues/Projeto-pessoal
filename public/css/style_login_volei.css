@@ -127,6 +127,44 @@ input{
     font-weight: bold;
     margin-bottom: 8px;
 }
+.campo-senha {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Input de senha */
+.campo-senha input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+
+.btn-olho {
+   position: absolute;
+    right: 12px;
+    top: 50%;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    font-size: 30px;
+    color: #10283D;
+
+    display: flex;
+    align-items: center;
+    transform: translateY(-50%) scale(1.15);
+
+}
+
+
+/* Efeito ao passar o mouse */
+.btn-olho:hover {
+    color: #6554b8;
+
+}
 
 .btn-login{
     display: flex;

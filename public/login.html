@@ -54,8 +54,15 @@
             <input type="text" id="ipt_email">
 
             <label for="ipt_senha">Senha:</label>
-            <input type="text " id="ipt_senha">
+           <div class="campo-senha">
 
+               <input 
+               type="password" id="ipt_senha">
+               
+               <button class="btn-olho" id="btn_mostrar_senha" 
+               onclick="alternar_senha('ipt_senha', 'btn_mostrar_senha')">  ⌣</button>
+               
+            </div>
           
             <div class="btn-entrar">
                 <button onclick="entrar()">Login</button>
@@ -69,7 +76,19 @@
 
 </html>
 <script>
-    function entrar() {
+function alternar_senha(id_campo, id_botao) {
+    let campo = document.getElementById(id_campo);
+    let botao = document.getElementById(id_botao);
+
+    if (campo.type == "password") {
+        campo.type = "text";
+        botao.textContent = "👁";
+    } else {
+        campo.type = "password";
+        botao.textContent = "⌣";
+    }
+}
+    function entrar() {        
         let email = document.getElementById("ipt_email").value;
         let senha = document.getElementById("ipt_senha").value;
         let div_msg = document.getElementById("div_msg");
