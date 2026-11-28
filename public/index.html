@@ -426,9 +426,9 @@
                 let total_sesc = 0;
 
                 lista.forEach(function (c) {
-                    if (c.fk_local == 1) { total_pelezao++; }
-                    else if (c.fk_local == 2) { total_villa++; }
-                    else if (c.fk_local == 3) { total_sesc++; }
+                    if (fk_local == 1) { total_pelezao++; }
+                    else if (fk_local == 2) { total_villa++; }
+                    else if (fk_local == 3) { total_sesc++; }
                 });
 
                 document.getElementById("total_pelezao").textContent = total_pelezao + " avaliações";

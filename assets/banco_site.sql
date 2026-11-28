@@ -1,36 +1,32 @@
-use sprint3;
-
-use sprint3;
+create database volei_sp;
+use volei_sp;
 
 CREATE TABLE usuario (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45),
-    email VARCHAR(100),
-    senha VARCHAR(30)
+id int NOT NULL AUTO_INCREMENT primary key,
+nome varchar(45) NOT NULL,
+email varchar(100) NOT NULL,
+senha varchar(30) NOT NULL
 );
 
 CREATE TABLE locais (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45)
+id int NOT NULL AUTO_INCREMENT primary key,
+nome varchar(45) DEFAULT NULL
 );
+
+insert into locais (nome) values 
+('pelezão'),
+('villa Lobbos'),
+('sesc pompeia');
 
 CREATE TABLE comentario (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nota CHAR(5),
-    comentario VARCHAR(230),
-    fk_local INT,
-    fk_usuario INT,
-
-    FOREIGN KEY (fk_local) REFERENCES locais(id),
-    FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+id int NOT NULL AUTO_INCREMENT,
+nota_localizacao char(5) DEFAULT NULL,
+nota_estrutura char(5) DEFAULT NULL,
+nota_ambiente char(5) DEFAULT NULL,
+comentario varchar(230) DEFAULT NULL,
+fk_local int DEFAULT NULL,
+fk_usuario int DEFAULT NULL,
+PRIMARY KEY (id),
+foreign key (fk_local) references locais(id),
+foreign key(fk_usuario) references usuario(id)
 );
-select * from comentario  Join locais ON locais.id = comentario.fk_local where locais.id = 1; -- pelezao
-
-select * from comentario  Join locais ON locais.id = comentario.fk_local where locais.id = 2; -- villa lobos
-
-select * from comentario  Join locais ON locais.id = comentario.fk_local where locais.id = 3; -- sesc pompeia
-
-select * from comentario 
-Join locais ON locais.id = comentario.fk_local ; -- todos os comentarios
-
-select * from usuario;
